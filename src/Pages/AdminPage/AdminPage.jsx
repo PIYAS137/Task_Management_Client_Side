@@ -11,7 +11,7 @@ const AdminPage = () => {
                     {/* Page content here */}
                     <label htmlFor="my-drawer" className=" m-5 flex justify-between cursor-pointer drawer-button text-3xl">
                         <HiBars3 />
-                        <p>User Dashboard</p>
+                        <p className=" text-2xl font-bold text-purple-500">User Dashboard</p>
                     </label>
                 </div>
                 <div className="drawer-side">
