@@ -5,6 +5,8 @@ import LoginPage from '../Pages/LoginPage/LoginPage';
 import SignupPage from '../Pages/SignupPage/SignupPage';
 import AdminPage from '../Pages/AdminPage/AdminPage';
 import AdminHomePage from '../Pages/AdminHomePage/AdminHomePage';
+import PrivateRoute from './PrivateRoute';
+import AboutPage from '../Pages/AboutPage/AboutPage';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path:'/signup',
                 element:<SignupPage/>
+            },
+            {
+                path:'/about',
+                element:<PrivateRoute><AboutPage/></PrivateRoute>
             }
         ]
     },
@@ -31,7 +37,7 @@ const router = createBrowserRouter([
         children:[
             {
                 path:'/dashboard',
-                element:<AdminHomePage/>
+                element:<PrivateRoute><AdminHomePage/></PrivateRoute>
             }
         ]
     }

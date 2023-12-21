@@ -22,17 +22,19 @@ const FirebaseContext = ({ children }) => {
     
     const FirebaseSignupUser=(email,pass)=>{
         setLoader(true);
+        console.log(email);
+        console.log(pass);
         return createUserWithEmailAndPassword(FirebaseAuth,email,pass);
     }
 
     const FirebaseLogoutUser=()=>{
         setLoader(true);
-        return signOut();
+        return signOut(FirebaseAuth);
     }
 
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(FirebaseAuth, (currentUser)=>{
-            setLoader(true);
+            setLoader(false);
             setUser(currentUser);
         })
         return ()=>{

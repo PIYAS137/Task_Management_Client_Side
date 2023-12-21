@@ -1,14 +1,24 @@
-import { NavLink } from "react-router-dom"
+import { useContext } from "react"
+import { Link, NavLink } from "react-router-dom"
+import { AuthContext } from "../Context/FirebaseContext"
 
 
 const AppNavbar = () => {
 
+    const {user,FirebaseLogoutUser} =  useContext(AuthContext)
+
+    console.log(user);
 
     const navLinks = <>
         <li><NavLink to={'/'}>Homepage</NavLink></li>
-        <li><NavLink to={'/login'}>Login</NavLink></li>
+        <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+        <li><NavLink to={'/about'}>About</NavLink></li>
     </>
 
+const handleClickLogOut=()=>{
+    FirebaseLogoutUser()
+    .then().catch()
+}
 
 
 
@@ -32,7 +42,12 @@ const AppNavbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn btn-error text-white">Login</a>
+                    {
+                        user?.email ? 
+                        <button onClick={handleClickLogOut} className="btn btn-error text-white">Logout</button>
+                        :
+                        <button className="btn btn-primary text-white"><Link to={'/login'}>Login</Link></button>
+                    }
                 </div>
             </div>
         </>
