@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form"
 import useAxiosHook from "../hooks/useAxiosHook";
 import { AuthContext } from "../Context/FirebaseContext";
 import Swal from 'sweetalert2'
+import useGetAllTask from "../hooks/useGetAllTask";
 
 const CreateTask = () => {
     const { user } = useContext(AuthContext)
     const [modalStatus, setModalStatus] = useState(false);
     const myAxios = useAxiosHook()
+
+    const [,refetch] = useGetAllTask()
 
     const {
         reset,
@@ -38,6 +41,7 @@ const CreateTask = () => {
                         timer: 2000
                     });
                     reset()
+                    refetch()
                 }
             }).catch(err => {
                 Swal.fire({
