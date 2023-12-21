@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { HiOutlinePlus } from "react-icons/hi2";
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom";
 import useAxiosHook from "../hooks/useAxiosHook";
 import { AuthContext } from "../Context/FirebaseContext";
+import Swal from 'sweetalert2'
 
 const CreateTask = () => {
     const { user } = useContext(AuthContext)
@@ -11,10 +11,10 @@ const CreateTask = () => {
     const myAxios = useAxiosHook()
 
     const {
+        reset,
         register,
         handleSubmit,
     } = useForm()
-
 
     const onSubmit = (data) => {
         setModalStatus(false)
@@ -24,11 +24,29 @@ const CreateTask = () => {
             description: data.des,
             priority: data.prio,
             email: user?.email,
-            name: user?.displayName
+            name: user?.displayName,
+            status: 'todo'
         }
         myAxios.post('/task', newUser)
             .then(res => {
-                console.log(res.data);
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Successfully Task Added !",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    reset()
+                }
+            }).catch(err => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: err.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
             })
     }
 
@@ -61,15 +79,14 @@ const CreateTask = () => {
                                 <span className="label-text">Add Deadline</span>
                             </label>
                             <input {...register("dead")} type="date" placeholder="password" className="input input-bordered" required />
-
                             <label className="label">
                                 <span className="label-text">Priority</span>
                             </label>
                             <select {...register("prio")} className="select select-bordered w-full">
                                 <option value=" ">Add Prority Level</option>
-                                <option value="web developer">Web Developer</option>
-                                <option value="student">Student</option>
-                                <option value="teacher">Teacher</option>
+                                <option value="max">Max</option>
+                                <option value="medium">Medium</option>
+                                <option value="less">Less</option>
                             </select>
                         </div>
                         <div className="form-control mt-2">
