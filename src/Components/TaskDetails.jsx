@@ -8,7 +8,6 @@ import TodoSlice from "./TodoSlice"
 const TaskDetails = () => {
 
     const [allTask,refetch]=useGetAllTask();
-    
 
     return (
         <div className=" container mx-auto">

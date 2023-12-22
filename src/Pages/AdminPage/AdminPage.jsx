@@ -1,7 +1,19 @@
 import { NavLink, Outlet } from "react-router-dom"
 import { HiBars3 } from "react-icons/hi2";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/FirebaseContext";
 
 const AdminPage = () => {
+
+    const {FirebaseLogoutUser} = useContext(AuthContext)
+
+    const handleClickLogOut=()=>{
+        FirebaseLogoutUser()
+        .then().catch();
+    }
+
+
+
     return (
         <div>
 
@@ -19,12 +31,10 @@ const AdminPage = () => {
                     <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content space-y-2">
                         {/* Sidebar content here */}
                         <li className="font-semibold">User Admin Routes</li>
-                        <li><NavLink>Add TodO</NavLink></li>
-                        <li><NavLink>Add TodO</NavLink></li>
-                        <li><NavLink>Add TodO</NavLink></li>
-                        <li><NavLink>Add TodO</NavLink></li>
-                        <li><NavLink>Add TodO</NavLink></li>
-                        <li><NavLink>Add TodO</NavLink></li>
+                        <li className=" cursor-pointer hover:bg-purple-400 bg-purple-500 text-white rounded-lg"><NavLink to={'/'}>Home Page</NavLink></li>
+                        <li className=" cursor-pointer hover:bg-purple-400 bg-purple-500 text-white rounded-lg"><NavLink to={'/dashboard'}>User Dashboard</NavLink></li>
+                        <li className=" cursor-pointer hover:bg-purple-400 bg-purple-500 text-white rounded-lg"><NavLink to={'alltask'}>View All Task</NavLink></li>
+                        <li onClick={handleClickLogOut} className="cursor-pointer hover:bg-red-400 bg-red-500 text-white py-2 rounded-lg px-4">Logout</li>
                     </ul>
                 </div>
             </div>

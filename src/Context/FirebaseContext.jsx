@@ -1,12 +1,14 @@
 import { createContext, useEffect, useState } from "react"
 
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import app from "../Firebase/firebase.config";
 
 
 
 export const AuthContext = createContext(null);
 const FirebaseAuth = getAuth(app);
+const FirebaseGoogleAuth = new GoogleAuthProvider();
+const FirebaeGithubAuth = new GithubAuthProvider();
 
 
 const FirebaseContext = ({ children }) => {
@@ -50,13 +52,24 @@ const FirebaseContext = ({ children }) => {
         })
     }
 
+    const FirebaseGogleLogin = ()=>{
+        setLoader(true);
+        return signInWithPopup(FirebaseAuth,FirebaseGoogleAuth)
+    }
+    const FirebaseGithubLogin = ()=>{
+        setLoader(true);
+        return signInWithPopup(FirebaseAuth,FirebaeGithubAuth)
+    }
+
     const authInfo = {
         user,
         loader,
         FirebaseLoginUser,
         FirebaseLogoutUser,
         FirebaseSignupUser,
-        FirebaseUpdateUser
+        FirebaseUpdateUser,
+        FirebaseGogleLogin,
+        FirebaseGithubLogin
     }
 
     return (

@@ -8,12 +8,11 @@ const AdminHomePage = () => {
 
     const {user}=useContext(AuthContext)
     const [allTask,refetch]=useGetAllTask();
-    console.log(allTask?.filter(one=>one.status=="comp"));
 
 
     return (
         <div>
-            <div className="bg-purple-600 text-white">
+            <div className="bg-black text-white">
                 <div className=" container mx-auto grid grid-cols-2 items-center py-5">
                     <div>
                         <p className=" font-semibold text-base">My total task : {allTask?.length}</p>
@@ -24,7 +23,7 @@ const AdminHomePage = () => {
                     <div className="flex flex-col justify-end items-end">
                         <div className="avatar">
                             <div className="w-24 rounded-full">
-                                <img src="https://i.ibb.co/F60MHS9/IMG-20220219-WA0053.jpg" />
+                                <img src={user?.photoURL} />
                             </div>
                         </div>
                         <h1><strong>{user?.displayName}</strong></h1>

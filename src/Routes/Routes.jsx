@@ -7,6 +7,7 @@ import AdminPage from '../Pages/AdminPage/AdminPage';
 import AdminHomePage from '../Pages/AdminHomePage/AdminHomePage';
 import PrivateRoute from './PrivateRoute';
 import AboutPage from '../Pages/AboutPage/AboutPage';
+import AllTaskiPage from '../Pages/AllTaskiPage/AllTaskiPage';
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/about',
-                element:<PrivateRoute><AboutPage/></PrivateRoute>
+                element:<AboutPage/>
             }
         ]
     },
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard',
                 element:<PrivateRoute><AdminHomePage/></PrivateRoute>
+            },
+            {
+                path: 'alltask',
+                element: <PrivateRoute><AllTaskiPage/></PrivateRoute>
             }
         ]
     }

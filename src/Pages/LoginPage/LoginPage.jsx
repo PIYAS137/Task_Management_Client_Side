@@ -2,14 +2,16 @@ import { useContext } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../Context/FirebaseContext"
 import { useForm } from "react-hook-form"
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+import useAxiosHook from '../../hooks/useAxiosHook'
 
 
 const LoginPage = () => {
 
-  const { FirebaseLoginUser } = useContext(AuthContext)
+  const { FirebaseLoginUser,FirebaseGogleLogin,FirebaseGithubLogin } = useContext(AuthContext)
   const location = useLocation()
   const navigate = useNavigate()
+  const myHook = useAxiosHook()
   const {
     register,
     handleSubmit,
@@ -39,6 +41,50 @@ const LoginPage = () => {
 
   }
 
+  const handleGoogleLogin=()=>{
+    FirebaseGogleLogin()
+    .then(res => {
+      const newUser = {
+        name: res.user.displayName,
+        email: res.user.email,
+        photo: res.user.photoURL,
+        profession:'student',
+      }
+      myHook.post('/user', newUser)
+        .then(res => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Login Successfull !",
+            showConfirmButton: false,
+            timer: 2000
+          });
+          navigate(location?.state ? location?.state : '/')
+        })
+    }).catch()
+  }
+  const handleGithubLogin=()=>{
+    FirebaseGithubLogin()
+    .then(res => {
+      const newUser = {
+        name: res.user.displayName,
+        email: res.user.email,
+        photo: res.user.photoURL,
+        profession:'student',
+      }
+      myHook.post('/user', newUser)
+        .then(res => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Login Successfull !",
+            showConfirmButton: false,
+            timer: 2000
+          });
+          navigate(location?.state ? location?.state : '/')
+        })
+    }).catch()
+  }
 
 
   return (
@@ -62,8 +108,13 @@ const LoginPage = () => {
             <p>Dont have an account ? <Link state={location?.state} to={'/signup'} className="font-bold">Create account!</Link></p>
           </label>
         </div>
-        <div className="form-control mt-6">
+
+        <div className="form-control">
           <button className="btn btn-primary">Login</button>
+        </div>
+        <div className="form-control">
+          <button onClick={handleGoogleLogin} className="btn btn-primary">Login With Google</button>
+          <button onClick={handleGithubLogin} className="btn mt-2 btn-primary">Login With GitHub</button>
         </div>
       </form>
     </div>
