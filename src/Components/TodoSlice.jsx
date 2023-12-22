@@ -19,6 +19,9 @@ const TodoSlice = ({allTask,refetch}) => {
             <h1 className=" text-center font-bold text-lg py-2 rounded-t-lg bg-blue-400">To Do Task</h1>
             <div>
                 {
+                    datas?.length == 0 && <p className="bg-red-200 mt-2 p-1 text-red-500 rounded-lg text-center">No Task</p>
+                }
+                {
                     datas?.map(one=><OneCard refetch={refetch} key={one._id} data={one}/>)
                 }
             </div>

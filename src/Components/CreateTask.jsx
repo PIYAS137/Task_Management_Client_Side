@@ -64,7 +64,8 @@ const CreateTask = () => {
             {
                 modalStatus &&
                 <div className="w-full h-screen absolute top-0 left-0 bg-[#000000ba] flex justify-center items-center">
-                    <form onSubmit={handleSubmit(onSubmit)} className="card-body max-w-xl bg-purple-200 rounded-xl -mt-16">
+                    <form onSubmit={handleSubmit(onSubmit)} className="card-body relative max-w-xl bg-purple-200 rounded-xl -mt-16">
+                    <button onClick={()=>setModalStatus(false)} className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3">✕</button>
                         <div>
                             <h1 className=" text-3xl text-center font-bold ">New Task</h1>
                         </div>
